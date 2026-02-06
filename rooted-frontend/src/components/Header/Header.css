@@ -1,0 +1,89 @@
+.header {
+  background-color: transparent;
+}
+
+.header__container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: space-between;
+  background-color: #abc4d4;
+  padding: 0 24px;
+  height: 100px;
+}
+
+.header__logo {
+  width: 120px;
+  margin-left: 24px;
+  z-index: 2;
+}
+
+.header__links {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 40px;
+  font-family:
+    Cabinet Grotesk,
+    sans-serif;
+}
+.header__links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 16px;
+}
+.header__links a:hover {
+  color: #8b4513;
+  cursor: pointer;
+}
+
+.header__auth-btns {
+  /* opacity: 1;
+  font-family:
+    Cabinet Grotesk,
+    sans-serif;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 20px;
+  line-height: 24px;
+  background-color: transparent;
+  gap: 10px;
+  margin-left: auto; */
+  display: flex; /* horizontal layout */
+  gap: 12px; /* space between buttons */
+  margin-left: auto; /* push to the far right */
+  align-items: center; /* vertical alignment */
+  background-color: transparent; /* ensure container is transparent */
+}
+
+.header__login,
+.header__signup {
+  border: 2px solid #333;
+  border-radius: 50px;
+  background-color: transparent;
+  padding: 6px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.header__login:hover,
+.header__signup:hover {
+  background-color: #333; /* dark background on hover */
+  color: #fff; /* white text on hover */
+  border-color: #333;
+}
+
+.header__logout {
+  border: 2px solid #333;
+  border-radius: 50px;
+  background-color: transparent;
+  padding: 6px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}

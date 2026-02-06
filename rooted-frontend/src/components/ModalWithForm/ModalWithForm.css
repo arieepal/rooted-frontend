@@ -1,0 +1,157 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    visibility 0.3s,
+    opacity 0.3s;
+}
+
+.modal_opened {
+  visibility: visible;
+  transition: 0.5s;
+  opacity: 1;
+}
+
+.modal__close_type_form {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  background-image: url("../../assets/closeModalDark.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 20px;
+  height: 20px;
+  opacity: 100%;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  padding: 0;
+}
+
+.modal__content {
+  background-color: rgba(255, 255, 255, 1);
+  border: none;
+  border-radius: 20px;
+  padding: 28px 28px 36px;
+  position: relative;
+  max-width: 496px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.modal__title {
+  margin: 0 0 24px;
+  font-family:
+    Cabinet Grotesk,
+    sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.modal__input {
+  display: block;
+  width: 440px;
+  height: 52px;
+  top: 293px;
+  left: 500px;
+  margin: 0 0 24px;
+  padding: 0 0;
+  border: none;
+  border-bottom: 1px solid rgb(0, 0, 0);
+}
+
+.modal__input::placeholder {
+  font-family:
+    Cabinet Grotesk,
+    sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  position: relative;
+  transform: translateY(10px);
+}
+
+.modal__label {
+  font-family:
+    Cabinet Grotesk,
+    sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  top: 265px;
+  left: 500px;
+}
+
+.modal__legend {
+  margin: 0 0 12px;
+  font-family:
+    Cabinet Grotesk,
+    sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  color: black;
+}
+.modal__radio-buttons {
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  top: 417px;
+  left: 500px;
+  color: rgba(0, 0, 0, 0.5);
+
+  /* gap: 8px; */
+}
+
+.modal__label.modal__label_type_radio {
+  margin-bottom: 8px;
+}
+
+.modal__label.modal__label_type_radio:last-child {
+  margin-bottom: 0;
+}
+
+.modal__submit {
+  width: 124px;
+  height: 36px;
+  border-radius: 50px;
+  gap: 8px;
+  text-align: center;
+  background: #abc4d4;
+  border: none;
+  color: black;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  top: 32px;
+  margin: 32px 0 0 0;
+  cursor: pointer;
+}
+
+.modal__submit:hover {
+  background-color: #486a7f;
+  color: rgba(255, 255, 255, 1);
+}
+
+.modal__submit:disabled {
+  background-color: rgba(0, 0, 0, 0.3);
+}
