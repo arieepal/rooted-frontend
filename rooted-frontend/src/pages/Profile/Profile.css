@@ -152,6 +152,8 @@
   position: relative;
   min-height: 150px;
   z-index: 2;
+  background-size: cover;
+  background-position: center;
 }
 .photo-delete-btn {
   position: absolute;
@@ -177,15 +179,43 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 16px;
+  transition: opacity 0.35s ease-in-out;
+  opacity: 0;
+}
+
+.photo-card img.loaded {
+  opacity: 1;
+}
+
+.photo-placeholder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  color: #6b8da3;
+  font-size: 14px;
+  gap: 6px;
+}
+
+.photo-card:hover .photo-placeholder {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.02);
+  transition: all 0.2s;
 }
 
 .photo-date {
-  border: none;
-  background: transparent;
-  text-align: center;
-  font-size: 13px;
-  color: #444;
+  border: 2px solid #8b4513;
+  color: #8b4513;
+  border-radius: 50px;
+  background-color: transparent;
+  padding: 6px 16px;
   cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.2s ease;
 }
 
 @media (max-width: 768px) {

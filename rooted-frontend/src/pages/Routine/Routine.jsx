@@ -89,6 +89,21 @@ const routineTasks = (routine) => [
 
 function Routine({ user }) {
   const [routines, setRoutines] = useState([]);
+  const [completedByDate, setCompletedByDate] = useState({});
+  const [activePorosity, setActivePorosity] = useState(
+    user?.porosity?.toLowerCase(),
+  );
+
+  useEffect(() => {
+    const saved = localStorage.getItem("routineCompleted");
+    if (saved) {
+      setCompletedByDate(JSON.parse(saved));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("routineCompleted", JSON.stringify(completedByDate));
+  }, [completedByDate]);
 
   useEffect(() => {
     api.getRoutines().then(setRoutines);
@@ -97,26 +112,14 @@ function Routine({ user }) {
   if (!user || !user.porosity) {
     return <p>Loading Your Routine...</p>;
   }
-  const porosityKey = user.porosity.toLowerCase();
+  // const porosityKey = user.porosity.toLowerCase();
+  const porosityKey = activePorosity;
   const routine = routineByPorosity[porosityKey];
   const today = new Date().toISOString().split("T")[0];
-  const [completedByDate, setCompletedByDate] = useState({});
 
   if (!routine) {
     return <p>No routine available for your hair profile yet.</p>;
   }
-
-  // const handleAddRoutine = (routine) => {
-  //   api.saveRoutine(routine).then((saved) => {
-  //     setRoutines((prev) => [saved, ...prev]);
-  //   });
-  // };
-
-  const handleDeleteRoutine = (id) => {
-    api.deleteRoutine(id).then(() => {
-      setRoutines((prev) => prev.filter((routine) => routine._id !== id));
-    });
-  };
 
   return (
     <section className="routine">
@@ -135,58 +138,81 @@ function Routine({ user }) {
           <strong>Porosity:</strong>
           {user.porosity}
         </p>
+
+        {/* Porosity Preview Switch */}
+        <div className="routine__porosity-switch">
+          <label>Explore routine by porosity:</label>
+          <select
+            value={activePorosity}
+            onChange={(e) => setActivePorosity(e.target.value)}
+          >
+            <option value="low">Low porosity</option>
+            <option value="medium">Medium porosity</option>
+            <option value="high">High porosity</option>
+          </select>
+
+          {activePorosity !== user.porosity.toLowerCase() && (
+            <small className="routine__hint">
+              Previewing a different porosity routine
+            </small>
+          )}
+        </div>
       </div>
+
       {/* Routine Cards */}
-      <div className="routine__cards">
-        <div
-          className="routine__card routine__card-wash"
-          style={{ backgroundImage: `url(${wash})` }}
-        >
-          <div className="routine__card-overlay"></div>
-          <div className="routine__card-content">
-            <h3>Wash Day</h3>
+      <div key={activePorosity} className="routine__cards routine__fade">
+        <div className="routine__cards">
+          <div
+            className="routine__card routine__card-wash"
+            style={{ backgroundImage: `url(${wash})` }}
+          >
+            <div className="routine__card-overlay"></div>
+            <div className="routine__card-content">
+              <h3>Wash Day</h3>
 
-            <span>{routine.wash.frequency}</span>
-            <ul>
-              {routine.wash.steps.map((step, i) => (
-                <li key={i}> {step}</li>
-              ))}
-            </ul>
+              <span>{routine.wash.frequency}</span>
+              <ul>
+                {routine.wash.steps.map((step, i) => (
+                  <li key={i}> {step}</li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
 
-        <div
-          className="routine__card routine__card-moist"
-          style={{ backgroundImage: `url(${moisture})` }}
-        >
-          <div className="routine__card-overlay"></div>
-          <div className="routine__card-content">
-            <h3>Moisture Days</h3>
-            <span>{routine.moisture.frequency}</span>
-            <ul>
-              {routine.moisture.steps.map((step, i) => (
-                <li key={i}>{step}</li>
-              ))}
-            </ul>
+          <div
+            className="routine__card routine__card-moist"
+            style={{ backgroundImage: `url(${moisture})` }}
+          >
+            <div className="routine__card-overlay"></div>
+            <div className="routine__card-content">
+              <h3>Moisture Days</h3>
+              <span>{routine.moisture.frequency}</span>
+              <ul>
+                {routine.moisture.steps.map((step, i) => (
+                  <li key={i}>{step}</li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
 
-        <div
-          className="routine__card routine__card-oil "
-          style={{ backgroundImage: `url(${oil})` }}
-        >
-          {" "}
-          <div className="routine__card-overlay"></div>
-          <div className="routine__card-content">
-            <h3>Recommended Oils</h3>
-            <ul>
-              {routine.oils.map((oil, i) => (
-                <li key={i}>{oil}</li>
-              ))}
-            </ul>
+          <div
+            className="routine__card routine__card-oil "
+            style={{ backgroundImage: `url(${oil})` }}
+          >
+            {" "}
+            <div className="routine__card-overlay"></div>
+            <div className="routine__card-content">
+              <h3>Recommended Oils</h3>
+              <ul>
+                {routine.oils.map((oil, i) => (
+                  <li key={i}>{oil}</li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </div>
+
       <div className="routine__card routine__card--maintenance">
         <h3>Trims & Maintenance</h3>
 
@@ -207,7 +233,7 @@ function Routine({ user }) {
         </button>
       </div>
       <section className="routine__weekly">
-        <h3>This Week</h3>
+        <h3>Today's Hair Care Check-in</h3>
 
         <div className="routine__weekly-grid">
           {routineTasks(routine).map((task) => {

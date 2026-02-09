@@ -134,6 +134,47 @@
   cursor: not-allowed;
 }
 
+.routine__fade {
+  animation: fadeIn 0.35s ease-in-out;
+}
+/* porosity switch animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* porosity switch */
+.routine__porosity-switch {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 240px;
+}
+
+.routine__porosity-switch label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ece5d7;
+}
+
+.routine__porosity-switch select {
+  border: 2px solid #333;
+  border-radius: 50px;
+  background-color: transparent;
+  padding: 6px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+/* weekly checkin */
 .routine__weekly {
   margin-top: 32px;
   background-color: #f4efe7;

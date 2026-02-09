@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getHairProfile } from "../../utils/api";
 import "./Profile.css";
 import hairGraphic from "../../assets/profile_image.png";
+import placeholder from "../../assets/frame.png";
 
 function Profile({ user }) {
   const initialPhotos = [
@@ -113,13 +114,17 @@ function Profile({ user }) {
       <div className="profile__photo-grid">
         {photos.map((photo, index) => (
           <div key={index} className="photo-item">
-            <div className="photo-card">
+            <div
+              className="photo-card"
+              style={{ backgroundImage: `url(${placeholder})` }}
+            >
               {photo.file ? (
                 <>
                   <img
                     src={photo.file}
                     alt={`Hair progress ${index + 1}`}
                     onClick={() => handleAddOrEditPhoto(index)}
+                    onLoad={(e) => e.currentTarget.classList.add("loaded")}
                   />
 
                   <button
@@ -134,7 +139,7 @@ function Profile({ user }) {
                   className="photo-placeholder"
                   onClick={() => handleAddOrEditPhoto(index)}
                 >
-                  Click to add photo
+                  Click & add growth photo
                 </div>
               )}
             </div>
