@@ -14,8 +14,6 @@ import Routine from "../../pages/Routine/Routine";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 
-// import * as auth from "../../utils/auth";
-
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -23,110 +21,120 @@ function App() {
 
   const navigate = useNavigate();
 
-  //Mock user
-  // const mockUser = {
-  //   name: "Arielle",
-  //   hairType: "3C",
-  //   porosity: "Low",
-  //   routines: [
-  //     { id: 1, name: "Moisturize", frequency: "Daily" },
-  //     { id: 2, name: "Deep Condition", frequency: "Weekly" },
-  //   ],
-  // };
-
   //Modal controls
-  const handleRegisterClick = () => {
-    setActiveModal("register");
-  };
+  const handleRegisterClick = () => setActiveModal("register");
+  const handleLoginClick = () => setActiveModal("login");
+  const closeActiveModal = () => setActiveModal("");
 
-  const handleLoginClick = () => {
-    setActiveModal("login");
-  };
-
-  const closeActiveModal = () => {
-    setActiveModal("");
-  };
-
-  //Mvp auth
+  // --- Register a new user ---
   const handleRegister = (userData) => {
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
     const newUser = {
-      name: userData.name,
-      hairType: userData.hairType,
-      porosity: userData.porosity,
+      ...userData,
+      photos: [
+        { file: null, date: "" },
+        { file: null, date: "" },
+        { file: null, date: "" },
+        { file: null, date: "" },
+      ],
+      hairProfile: {
+        hairType: userData.hairType || "",
+        porosity: userData.porosity || "",
+      },
     };
+
+    users.push(newUser);
+    localStorage.setItem("users", JSON.stringify(users));
+    localStorage.setItem("currentUserEmail", newUser.email); // track who is logged in
+
     setUser(newUser);
     setIsLoggedIn(true);
-    localStorage.setItem("user", JSON.stringify(newUser));
     closeActiveModal();
     navigate("/profile");
   };
 
+  // --- Login existing user ---
   const handleLogin = (userData) => {
-    setUser(userData);
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const foundUser = users.find((u) => u.email === userData.email);
+
+    if (!foundUser) {
+      alert("User not found");
+      return;
+    }
+
+    localStorage.setItem("currentUserEmail", foundUser.email);
+
+    setUser(foundUser);
     setIsLoggedIn(true);
-    localStorage.setItem("user", JSON.stringify(userData));
     closeActiveModal();
     navigate("/profile");
   };
 
+  // --- Sign out ---
   const handleSignOut = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem("currentUserEmail");
     setUser(null);
     setIsLoggedIn(false);
     navigate("/");
   };
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("user");
+    const email = localStorage.getItem("currentUserEmail");
+    if (!email) return;
 
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const currentUser = users.find((u) => u.email === email);
+
+    if (currentUser) {
+      setUser(currentUser);
       setIsLoggedIn(true);
     }
   }, []);
 
   return (
-    <>
-      <div className="app">
-        <Header
-          handleRegisterClick={handleRegisterClick}
-          handleLoginClick={handleLoginClick}
-          isLoggedIn={isLoggedIn}
-          handleSignOut={handleSignOut}
-        />
-        <main className="main">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route
-              path="/profile"
-              element={
-                isLoggedIn ? <Profile user={user} /> : <Navigate to="/" />
-              }
-            />
-            <Route
-              path="/routine"
-              element={
-                isLoggedIn ? <Routine user={user} /> : <Navigate to="/" />
-              }
-            />
-          </Routes>
-        </main>
+    <div className="app">
+      <Header
+        handleRegisterClick={handleRegisterClick}
+        handleLoginClick={handleLoginClick}
+        isLoggedIn={isLoggedIn}
+        handleSignOut={handleSignOut}
+      />
+      <main className="main">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/profile"
+            element={
+              isLoggedIn ? (
+                <Profile user={user} setUser={setUser} />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          />
+          <Route
+            path="/routine"
+            element={isLoggedIn ? <Routine user={user} /> : <Navigate to="/" />}
+          />
+        </Routes>
+      </main>
 
-        <RegisterModal
-          isOpen={activeModal === "register"}
-          onSubmit={handleRegister}
-          onLogin={handleLoginClick}
-          onClose={closeActiveModal}
-        />
-        <LoginModal
-          isOpen={activeModal === "login"}
-          onSubmit={handleLogin}
-          onRegister={handleRegisterClick}
-          onClose={closeActiveModal}
-        />
-        <Footer />
-      </div>
-    </>
+      <RegisterModal
+        isOpen={activeModal === "register"}
+        onSubmit={handleRegister}
+        onLogin={handleLoginClick}
+        onClose={closeActiveModal}
+      />
+      <LoginModal
+        isOpen={activeModal === "login"}
+        onSubmit={handleLogin}
+        onRegister={handleRegisterClick}
+        onClose={closeActiveModal}
+      />
+      <Footer />
+    </div>
   );
 }
 

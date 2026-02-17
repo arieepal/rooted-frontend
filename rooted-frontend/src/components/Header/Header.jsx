@@ -23,7 +23,7 @@ function Header({
               {" | "}
               <Link to="/profile">Profile</Link>
               {" | "}
-              <Link to="/routine">Routine</Link>\{" "}
+              <Link to="/routine">Routine</Link>{" "}
             </>
           )}
         </nav>

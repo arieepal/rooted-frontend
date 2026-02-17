@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getHairProfile } from "../../utils/api";
+import * as api from "../../utils/api";
 import "./Profile.css";
 import hairGraphic from "../../assets/profile_image.png";
 import placeholder from "../../assets/frame.png";
@@ -12,23 +13,45 @@ function Profile({ user }) {
     { file: null, date: "" },
   ];
 
-  const storedPhotos =
-    JSON.parse(localStorage.getItem("photos")) || initialPhotos;
-
-  const [photos, setPhotos] = useState(storedPhotos);
-  const [hairProfile, setHairProfile] = useState(null);
-
-  // Persist photos to localStorage
-  useEffect(() => {
-    localStorage.setItem("photos", JSON.stringify(photos));
-  }, [photos]);
+  const [photos, setPhotos] = useState(user?.photos || initialPhotos);
+  const [hairProfile, setHairProfile] = useState(user?.hairProfile || null);
 
   //fake backend
+  // useEffect(() => {
+  //   getHairProfile().then((data) => {
+  //     setHairProfile(data);
+  //   });
+  // }, []);
+
   useEffect(() => {
-    getHairProfile().then((data) => {
-      setHairProfile(data);
-    });
-  }, []);
+    if (user?.hairProfile) {
+      // User already has a hair profile
+      setHairProfile(user.hairProfile);
+    } else {
+      // Otherwise, fetch from fake backend
+      getHairProfile().then((data) => {
+        setHairProfile(data);
+
+        // Also save it in the user object and localStorage
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+        const updatedUsers = users.map((u) =>
+          u.email === user.email ? { ...u, hairProfile: data } : u,
+        );
+        localStorage.setItem("users", JSON.stringify(updatedUsers));
+      });
+    }
+  }, [user]);
+
+  //update app
+  useEffect(() => {
+    if (!user) return;
+
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const updatedUsers = users.map((u) =>
+      u.email === user.email ? { ...u, photos } : u,
+    );
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
+  }, [photos, user.email]);
 
   // Convert File to data URL
   const fileToDataUrl = (file) =>
@@ -50,7 +73,6 @@ function Profile({ user }) {
       const dataUrl = await fileToDataUrl(file);
 
       const newPhotos = [...photos];
-      // Keep existing date if already set
       newPhotos[index] = { file: dataUrl, date: newPhotos[index].date || "" };
       setPhotos(newPhotos);
     };
