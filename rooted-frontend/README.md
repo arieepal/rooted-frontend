@@ -1,16 +1,39 @@
-# React + Vite
+# 🌿 Rooted
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Rooted is a user-centered hair profile application that allows individuals to create an account, log in, and store personalized hair information such as hair type, porosity, and photos.
 
-Currently, two official plugins are available:
+This project focuses on managing user-specific state in a frontend React application while simulating backend persistence using localStorage. Each user’s data is scoped and stored independently to prevent overlap between accounts.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Rooted emphasizes both functionality and thoughtful design. Because hair identity is personal, the interface was intentionally built to feel clean, organized, and welcoming. Special attention was given to state management, conditional rendering, and proper loading states to ensure a smooth user experience.
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- User registration and login
 
-## Expanding the ESLint configuration
+- Persistent hair profile storage using localStorage
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- User-specific data management
+
+- Profile photo storage
+
+- Conditional rendering with loading states
+
+- Deployed using GitHub Pages
+
+## 👷🏼‍♀️ Built With
+
+- React
+
+- Vite
+
+- JavaScript
+
+- CSS
+
+- Git & GitHub
+
+- GitHub Pages (deployment)
+
+### 🔗 Links
+
+[Rooted](https://arieepal.github.io/rooted-frontend/)
