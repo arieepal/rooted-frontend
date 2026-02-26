@@ -78,6 +78,7 @@ function App() {
     setUser(null);
     setIsLoggedIn(false);
     navigate("/");
+    // Clear photos state
   };
 
   useEffect(() => {

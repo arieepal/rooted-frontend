@@ -48,7 +48,7 @@ function Profile({ user }) {
 
     const users = JSON.parse(localStorage.getItem("users")) || [];
     const updatedUsers = users.map((u) =>
-      u.email === user.email ? { ...u, photos } : u,
+      u.email === user.email ? { ...u } : u,
     );
     localStorage.setItem("users", JSON.stringify(updatedUsers));
   }, [photos, user.email]);

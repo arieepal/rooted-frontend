@@ -7,7 +7,7 @@ import App from "./components/App/App";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/rooted-frontend/">
       <App />
     </BrowserRouter>
   </React.StrictMode>,
