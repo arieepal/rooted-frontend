@@ -33,7 +33,7 @@ function Home() {
       clearInterval(leftInterval);
       clearInterval(rightInterval);
     };
-  }, []);
+  }, [rightImages.length, leftImages.length]);
 
   return (
     <main className="main">

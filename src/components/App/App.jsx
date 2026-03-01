@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 
 import "./index.css";
@@ -16,8 +16,26 @@ import LoginModal from "../LoginModal/LoginModal";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
+
+  const [user, setUser] = useState(() => {
+    const email = localStorage.getItem("currentUserEmail");
+    if (!email) return null;
+
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    return users.find((u) => u.email === email) || null;
+  });
+
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    const email = localStorage.getItem("currentUserEmail");
+    return !!email;
+  });
+
+  //   const currentUser = users.find((u) => u.email === email);
+
+  // if (currentUser) {
+  //   setUser(currentUser);
+  //   setIsLoggedIn(true);
+  // }
 
   const navigate = useNavigate();
 
@@ -80,19 +98,6 @@ function App() {
     navigate("/");
     // Clear photos state
   };
-
-  useEffect(() => {
-    const email = localStorage.getItem("currentUserEmail");
-    if (!email) return;
-
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const currentUser = users.find((u) => u.email === email);
-
-    if (currentUser) {
-      setUser(currentUser);
-      setIsLoggedIn(true);
-    }
-  }, []);
 
   return (
     <div className="app">

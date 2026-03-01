@@ -88,18 +88,21 @@ const routineTasks = (routine) => [
 ];
 
 function Routine({ user }) {
-  const [routines, setRoutines] = useState([]);
-  const [completedByDate, setCompletedByDate] = useState({});
+  const [setRoutines] = useState([]);
+  const [completedByDate, setCompletedByDate] = useState(() => {
+    const saved = localStorage.getItem("routineCompleted");
+    return saved ? JSON.parse(saved) : {};
+  });
   const [activePorosity, setActivePorosity] = useState(
     user?.porosity?.toLowerCase(),
   );
 
-  useEffect(() => {
-    const saved = localStorage.getItem("routineCompleted");
-    if (saved) {
-      setCompletedByDate(JSON.parse(saved));
-    }
-  }, []);
+  // useEffect(() => {
+  //   const saved = localStorage.getItem("routineCompleted");
+  //   if (saved) {
+  //     setCompletedByDate(JSON.parse(saved));
+  //   }
+  // }, []);
 
   useEffect(() => {
     localStorage.setItem("routineCompleted", JSON.stringify(completedByDate));
@@ -107,7 +110,7 @@ function Routine({ user }) {
 
   useEffect(() => {
     api.getRoutines().then(setRoutines);
-  }, []);
+  }, [setRoutines]);
 
   if (!user || !user.porosity) {
     return <p>Loading Your Routine...</p>;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getHairProfile } from "../../utils/api";
-import * as api from "../../utils/api";
+// import * as api from "../../utils/api";
 import "./Profile.css";
 import hairGraphic from "../../assets/profile_image.png";
 import placeholder from "../../assets/frame.png";
@@ -13,7 +13,15 @@ function Profile({ user }) {
     { file: null, date: "" },
   ];
 
-  const [photos, setPhotos] = useState(user?.photos || initialPhotos);
+  const [photos, setPhotos] = useState(() => {
+    if (!user) return initialPhotos;
+
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const currentUser = users.find((u) => u.email === user.email);
+
+    return currentUser?.photos || initialPhotos;
+  });
+
   const [hairProfile, setHairProfile] = useState(user?.hairProfile || null);
 
   //fake backend
@@ -25,14 +33,9 @@ function Profile({ user }) {
 
   useEffect(() => {
     if (user?.hairProfile) {
-      // User already has a hair profile
-      setHairProfile(user.hairProfile);
-    } else {
-      // Otherwise, fetch from fake backend
       getHairProfile().then((data) => {
         setHairProfile(data);
 
-        // Also save it in the user object and localStorage
         const users = JSON.parse(localStorage.getItem("users")) || [];
         const updatedUsers = users.map((u) =>
           u.email === user.email ? { ...u, hairProfile: data } : u,
@@ -48,10 +51,10 @@ function Profile({ user }) {
 
     const users = JSON.parse(localStorage.getItem("users")) || [];
     const updatedUsers = users.map((u) =>
-      u.email === user.email ? { ...u } : u,
+      u.email === user.email ? { ...u, photos } : u,
     );
     localStorage.setItem("users", JSON.stringify(updatedUsers));
-  }, [photos, user.email]);
+  }, [photos, user]);
 
   // Convert File to data URL
   const fileToDataUrl = (file) =>
@@ -68,6 +71,12 @@ function Profile({ user }) {
     fileInput.onchange = async (e) => {
       const file = e.target.files[0];
       if (!file) return;
+
+      if (file.size > 500 * 1024) {
+        // 500KB
+        alert("Image too large, please pick one under 500KB");
+        return;
+      }
 
       // Convert to data URL
       const dataUrl = await fileToDataUrl(file);

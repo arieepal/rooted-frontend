@@ -1,5 +1,5 @@
 import "./LoginModal.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
 
 function LoginModal({ isOpen, onClose, onSubmit, onRegister }) {
@@ -13,20 +13,26 @@ function LoginModal({ isOpen, onClose, onSubmit, onRegister }) {
     setPassword(evt.target.value);
   };
 
-  useEffect(() => {
-    setEmail("");
-    setPassword("");
-  }, [isOpen]);
+  // useEffect(() => {
+  //   setEmail("");
+  //   setPassword("");
+  // }, [isOpen]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit({ email, password });
   };
 
+  const handleModalClose = () => {
+    onClose();
+    setEmail("");
+    setPassword("");
+  };
+
   return (
     <ModalWithForm
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleModalClose}
       title="Log In"
       onSubmit={handleSubmit}
       buttonText="Log in"

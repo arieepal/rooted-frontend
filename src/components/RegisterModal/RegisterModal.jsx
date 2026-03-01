@@ -1,8 +1,8 @@
 import "./RegisterModal.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-function RegisterModal({ isOpen, onClose, onSubmit, onLogin, activeModal }) {
+function RegisterModal({ isOpen, onClose, onSubmit, onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -18,17 +18,23 @@ function RegisterModal({ isOpen, onClose, onSubmit, onLogin, activeModal }) {
   const handleNameChange = (evt) => {
     setName(evt.target.value);
   };
-  //   const handleAvatarChange = (evt) => {
-  //     setAvatar(evt.target.value);
-  //   };
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   setEmail("");
+  //   setPassword("");
+  //   setName("");
+  //   setHairType("");
+  //   setPorosity("");
+  // }, [isOpen]);
+
+  const handleModalClose = () => {
+    onClose();
     setEmail("");
     setPassword("");
     setName("");
     setHairType("");
     setPorosity("");
-  }, [isOpen]);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,7 +50,7 @@ function RegisterModal({ isOpen, onClose, onSubmit, onLogin, activeModal }) {
   return (
     <ModalWithForm
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleModalClose}
       title="Sign Up"
       onSubmit={handleSubmit}
       buttonText="Next"

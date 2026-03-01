@@ -34,6 +34,18 @@ Rooted emphasizes both functionality and thoughtful design. Because hair identit
 
 - GitHub Pages (deployment)
 
+## 📷 Photos
+
+![Rooted app homepage showing current quotes](<src/assets/readmephotos/Screenshot 2026-03-01 at 12.58.29 PM.png>)
+![Rooted app homepage showing current quotes](<src/assets/readmephotos/Screenshot 2026-03-01 at 12.57.28 PM.png>)
+![Rooted app homepage showing hair type and video of porosity](<src/assets/readmephotos/Screenshot 2026-03-01 at 12.57.51 PM.png>)
+![Rooted personalized profile page with uploadable photos](<src/assets/readmephotos/Screenshot 2026-03-01 at 12.53.17 PM.png>)
+![](src/assets/readmephotos/Screenshot 2026-03-01 at 12.53.26 PM.png)
+
+![Rooted. personalized routinebased on hair porosity](<src/assets/readmephotos/Screenshot 2026-03-01 at 12.52.47 PM.png>)
+![Rooted. personalized routinebased on hair porosity](<src/assets/readmephotos/Screenshot 2026-03-01 at 12.52.57 PM.png>)
+
 ### 🔗 Links
 
-[Rooted](https://arieepal.github.io/rooted-frontend/)
+- [Rooted](https://arieepal.github.io/rooted-frontend/)
+- [Rooted Live](https://www.loom.com/share/c1c85484f1964481885d339165e1122f)
