@@ -8,6 +8,8 @@
   font-size: 16px;
   line-height: 20px;
   background-color: #abc4d4;
+  position: relative; /* ensures z-index works */
+  z-index: 2;
 }
 
 .footer__author {

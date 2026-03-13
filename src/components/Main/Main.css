@@ -128,3 +128,18 @@
   border-radius: 1%;
   transition: opacity 0.4s ease-in-out;
 }
+
+@media (max-width: 768px) {
+  .main__container {
+    flex-direction: column;
+  }
+
+  .main__right {
+    order: -1;
+  }
+
+  .main__icon_top,
+  .main__icon_btm {
+    height: auto;
+  }
+}

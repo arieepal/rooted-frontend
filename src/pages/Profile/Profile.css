@@ -98,6 +98,7 @@
   font-style: italic;
   text-align: center;
   color: #8b4513;
+  z-index: 1;
 }
 
 .profile__photos {
@@ -113,6 +114,7 @@
   font-weight: 600;
   font-size: 16px;
   transition: all 0.2s ease;
+  z-index: 1;
 }
 
 .photo-add-btn:hover,
@@ -125,6 +127,9 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
+
+  position: relative; /* add this */
+  z-index: 1;
 }
 
 .profile__photo-grid {
@@ -216,15 +221,53 @@
   font-weight: 600;
   font-size: 16px;
   transition: all 0.2s ease;
+
+  position: relative; /* add this */
+  z-index: 1;
 }
 
 @media (max-width: 768px) {
+  /* Center top row content */
   .profile__top {
-    grid-template-columns: 1fr;
+    flex-direction: column; /* stack logo, headings, etc. if needed */
+    align-items: center; /* center horizontally */
     text-align: center;
+    padding-left: 0;
+    justify-content: center;
+  }
+
+  .profile__cards {
+    display: flex; /* horizontal row */
+    flex-direction: row; /* keep cards side by side */
+    justify-content: flex-start;
+    gap: 16px; /* spacing between cards */
+    overflow-x: auto; /* allow horizontal scrolling on small screens */
+    padding-bottom: 8px; /* space for scrollbar */
+    -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
+  }
+
+  /* Each card keeps vertical content inside */
+  .profile__card {
+    flex: 0 0 auto; /* prevent cards from shrinking */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 140px; /* card width */
+    max-width: 180px;
   }
 
   .profile__graphic {
-    margin-top: 24px;
+    position: fixed; /* keep it positioned relative to container */
+    top: 184px;
+    right: -132px;
+    width: 600px; /* scale down for mobile */
+    height: 600px; /* scale down for mobile */
+    transform: rotate(15deg); /* keep your rotation */
+    opacity: 0.8; /* subtle transparency */
+    pointer-events: none; /* don’t block clicks */
+  }
+  .photo-date {
+    border: 2px solid black;
+    color: black;
   }
 }

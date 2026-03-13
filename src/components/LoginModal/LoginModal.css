@@ -10,3 +10,10 @@
   cursor: pointer;
   transition: all 0.2s ease;
 }
+
+@media (max-width: 500px) {
+  .signup-or__btn {
+    bottom: 70px;
+    right: 232px;
+  }
+}
