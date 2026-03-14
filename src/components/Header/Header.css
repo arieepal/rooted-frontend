@@ -24,6 +24,7 @@
   transform: translateX(-50%);
   display: flex;
   gap: 40px;
+
   font-family:
     Cabinet Grotesk,
     sans-serif;
@@ -40,17 +41,6 @@
 }
 
 .header__auth-btns {
-  /* opacity: 1;
-  font-family:
-    Cabinet Grotesk,
-    sans-serif;
-  font-weight: 700;
-  font-style: Bold;
-  font-size: 20px;
-  line-height: 24px;
-  background-color: transparent;
-  gap: 10px;
-  margin-left: auto; */
   display: flex; /* horizontal layout */
   gap: 12px; /* space between buttons */
   margin-left: auto; /* push to the far right */
@@ -90,43 +80,15 @@
 
 @media (max-width: 768px) {
   .header__container {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 16px;
-    height: auto;
-  }
-
-  .header__top-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 12px;
-  }
-
-  .header__logo {
-    margin: 0;
-  }
-
-  .header__auth-btns {
-    margin: 0;
-    gap: 12px;
-  }
-
-  .header__logout {
-    position: absolute;
-    right: 16px;
-    top: 50px;
+    height: 115px;
   }
 
   .header__links {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 24px;
-    width: 100%;
-    position: relative;
-    left: auto;
-    transform: none;
+    top: 93px;
+  }
+  .header__logo {
+    margin-bottom: 17px;
+    width: 94px;
+    margin-left: -3px;
   }
 }
