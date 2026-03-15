@@ -1,0 +1,21 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 24px 40px;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  background-color: #abc4d4;
+  position: relative; /* ensures z-index works */
+  z-index: 2;
+}
+
+.footer__author {
+  margin: 0;
+}
+
+.footer__date {
+  margin: 0;
+}
